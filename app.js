@@ -10,7 +10,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/api/auth/register', userController.registerUser);
+app.post('/api/auth/login', userController.loginUser);
 
 app.listen(port, () => {
-  console.log(`App listening on port ${port}`)
+    console.log(`App listening on port ${port}`)
 })

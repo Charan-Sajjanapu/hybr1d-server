@@ -15,10 +15,10 @@ var connection = mysql.createConnection({
 });
 
 connection.connect((err) => {
-    if(!err)
+    if (!err)
         console.log('Connected to database successfully!');
     else
-        console.log('Error while connecting to database : '+ JSON.stringify(err, undefined,2));
+        console.log('Error while connecting to database : ' + JSON.stringify(err, undefined, 2));
 });
 
 module.exports = connection;
