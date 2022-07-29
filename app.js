@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
-const port = 3000;
 const cors = require("cors");
 const userController = require("./Controllers/userController");
 const bodyParser = require('body-parser');
 const { authenticateToken } = require('./Utilities/authUtility');
 const sellerController = require('./Controllers/sellerController');
 const buyerController = require('./Controllers/buyerController');
+const { SERVER_PORT } = require('./config');
 
 
 app.use(cors());
@@ -20,6 +20,6 @@ app.get('/api/buyer/seller-catalog/:seller_id', authenticateToken, buyerControll
 app.post('/api/buyer/create-order/:seller_id', authenticateToken, buyerController.createOrder);
 app.get('/api/seller/orders', authenticateToken, sellerController.getOrders);
 
-app.listen(port, () => {
-    console.log(`App listening on port ${port}`)
+app.listen(SERVER_PORT, () => {
+    console.log(`App listening on port ${SERVER_PORT}`)
 })

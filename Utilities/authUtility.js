@@ -1,11 +1,9 @@
-const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
-
-dotenv.config();
+const { AUTH_SECRET_KEY } = require('../config')
 
 module.exports = {
     generateAccessToken: (user) => {
-        return jwt.sign(user, process.env.HYBR1D_AUTH_KEY, { expiresIn: '1800s' });
+        return jwt.sign(user, AUTH_SECRET_KEY, { expiresIn: '1800s' });
     },
 
     authenticateToken: (req, res, next) => {
@@ -15,7 +13,7 @@ module.exports = {
         if (token == null)
             return res.sendStatus(401)
 
-        jwt.verify(token, process.env.HYBR1D_AUTH_KEY, (err, user) => {
+        jwt.verify(token, AUTH_SECRET_KEY, (err, user) => {
             if (err)
                 return res.sendStatus(403)
             req.user = user;

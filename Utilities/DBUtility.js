@@ -1,17 +1,14 @@
 const mysql = require('mysql2');
-const DB_HOST = process.env.DB_HOST || "127.0.0.1";
-const DB_USER = process.env.DB_USER || "root";
-const DB_PASSWORD = process.env.DB_PASSWORD || "";
-const DB_NAME = process.env.DB_NAME || "hydr1d";
-const DB_PORT = process.env.DB_PORT || 3306;
+const { DATA_BASE_CONFIG } = require('../config');
+
 
 //We could use ORM has well but as it is an assessment I thought it will be good to use direct SQL.
 var connection = mysql.createConnection({
-    host: DB_HOST,
-    port: DB_PORT,
-    user: DB_USER,
-    password: DB_PASSWORD,
-    database: DB_NAME
+    host: DATA_BASE_CONFIG.HOST,
+    port: DATA_BASE_CONFIG.PORT,
+    user: DATA_BASE_CONFIG.USER,
+    password: DATA_BASE_CONFIG.PASSWORD,
+    database: DATA_BASE_CONFIG.DB
 });
 
 connection.connect((err) => {
