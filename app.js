@@ -18,6 +18,7 @@ app.post('/api/seller/create-catalog', authenticateToken, sellerController.addPr
 app.get('/api/buyer/list-of-sellers', authenticateToken, buyerController.getSellersList);
 app.get('/api/buyer/seller-catalog/:seller_id', authenticateToken, buyerController.getSellerCatalog);
 app.post('/api/buyer/create-order/:seller_id', authenticateToken, buyerController.createOrder);
+app.get('/api/seller/orders', authenticateToken, sellerController.getOrders);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)

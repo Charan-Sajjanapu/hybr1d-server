@@ -39,11 +39,9 @@ module.exports = {
     placeOrder: (buyerId, sellerId, products) => {
         return new Promise((resolve, reject) => {
             let query = `INSERT INTO orders(buyerId, sellerId) VALUES (${buyerId}, ${sellerId});`;
-            console.log(query);
             connection.query(query, (err, res, fields) => {
                 if (err)
                     return reject(err);
-                console.log(res);
                 if (res && res.insertId) {
                     query = `INSERT INTO orderProductMapping(orderId, productId) VALUES`;
                     query += products.map(e => `(${res.insertId}, ${e.id})`).join(",") + ";";

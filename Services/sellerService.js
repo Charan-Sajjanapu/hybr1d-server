@@ -21,5 +21,21 @@ module.exports = {
                 return reject(ERRORS.INVALID_DATA);
             }
         });
+    },
+
+    getOrders: (user) => {
+        return new Promise((resovle, reject) => {
+            sellerRepository.getOrders(user.id).then(data => {
+                console.log(data);
+                if (data && data.length) {
+                    data = data.map(e => ({ ...e, products: e.products.split(",").map(se => ({ id: se.split("++")[0], name: se.split("++")[1], price: se.split("++")[2] })) }));
+                }
+                return resovle(data);
+            }).catch(err => {
+                let error = ERRORS.SERVER_ERROR;
+                error.msg = err;
+                return reject(error);
+            })
+        });
     }
 }
