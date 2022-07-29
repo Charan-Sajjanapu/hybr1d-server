@@ -1,10 +1,10 @@
 const sellerRepository = require("../Repository/sellerRepository");
-const { ERRORS } = require("../Utilities/CONSTANTS");
+const { ERRORS, USER_TYPE } = require("../Utilities/CONSTANTS");
 
 module.exports = {
     addProducts: (user, req) => {
         return new Promise((resovle, reject) => {
-            if (user && user.id) {
+            if (user && user.id && user.type == USER_TYPE.SELLER) {
                 let products = req.filter(e => e.name && e.price).map(e => ({ ...e, sellerId: user.id }));
                 if (products && products.length) {
                     sellerRepository.addProducts(products).then(data => {

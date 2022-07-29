@@ -25,7 +25,6 @@ module.exports = {
                 userRepository.verifyLogin(req.username, req.password).then(data => {
                     if (data && data.length) {
                         let accessToken = authUtility.generateAccessToken(data[0]);
-                        console.log(accessToken);
                         return resolve({ token: accessToken });
                     } else {
                         return reject(ERRORS.INCORRECT_CREDENTIALS);

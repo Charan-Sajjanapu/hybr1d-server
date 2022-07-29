@@ -17,11 +17,9 @@ CREATE TABLE products (
 
 CREATE TABLE orders (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    productId INT NOT NULL,
     buyerId INT NOT NULL,
     sellerId INT NOT NULL,
     created_on DATETIME DEFAULT NOW(),
-    FOREIGN KEY(productId) REFERENCES products(id),
     FOREIGN KEY(buyerId) REFERENCES users(id),
     FOREIGN KEY(sellerId) REFERENCES users(id)
 );
