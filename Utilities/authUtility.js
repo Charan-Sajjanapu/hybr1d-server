@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { AUTH_SECRET_KEY } = require('../config')
+const { AUTH_SECRET_KEY } = require('../config');
 
 module.exports = {
     generateAccessToken: (user) => {
@@ -19,5 +19,15 @@ module.exports = {
             req.user = user;
             next()
         });
+    },
+
+    authorizeRoles: (allowedUserTypes) => {
+        return (req, res, next) => {
+            if (req.user && req.user.type && allowedUserTypes.includes(req.user.type)) {
+                next();
+            } else {
+                return res.sendStatus(401);
+            }
+        };
     }
 }
