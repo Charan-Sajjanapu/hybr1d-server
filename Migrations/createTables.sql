@@ -10,13 +10,26 @@ CREATE TABLE products (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(20) NOT NULL,
     price INT NOT NULL,
+    sellerId INT NOT NULL,
     created_on DATETIME DEFAULT NOW(),
-    sellerId INT NOT NULL FOREIGN KEY REFERENCES users(id)
+    FOREIGN KEY(sellerId) REFERENCES users(id)
 );
 
 CREATE TABLE orders (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    productId INT NOT NULL,
+    buyerId INT NOT NULL,
+    sellerId INT NOT NULL,
     created_on DATETIME DEFAULT NOW(),
-    productId INT NOT NULL FOREIGN KEY REFERENCES products(id),
-    buyerId INT NOT NULL FOREIGN KEY REFERENCES users(id),
+    FOREIGN KEY(productId) REFERENCES products(id),
+    FOREIGN KEY(buyerId) REFERENCES users(id),
+    FOREIGN KEY(sellerId) REFERENCES users(id)
+);
+
+CREATE TABLE orderProductMapping (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    orderId INT NOT NULL,
+    productId INT NOT NULL,
+    FOREIGN KEY(productId) REFERENCES products(id),
+    FOREIGN KEY(orderId) REFERENCES orders(id)
 );

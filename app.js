@@ -4,6 +4,8 @@ const port = 3000;
 const cors = require("cors");
 const userController = require("./Controllers/userController");
 const bodyParser = require('body-parser');
+const { authenticateToken } = require('./Utilities/authUtility');
+const sellerController = require('./Controllers/sellerController');
 
 
 app.use(cors());
@@ -11,6 +13,7 @@ app.use(bodyParser.json());
 
 app.post('/api/auth/register', userController.registerUser);
 app.post('/api/auth/login', userController.loginUser);
+app.post('/api/seller/create-catalog', authenticateToken, sellerController.addProducts);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
